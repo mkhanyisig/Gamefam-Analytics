@@ -12,8 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('users:check')->everyTenMinutes();
         
-        $schedule->command('fetch:online-users')->everyTenMinutes();
     }
 
     /**
