@@ -3,7 +3,7 @@
         <h1>Mkhanyisi Gamefam test App </h1>
         <h2>Gamefam Analytics</h2>
         <h2>Live Online Users: {{ liveCount ?? ""  }}</h2>
-        <chartkick :data="chartData" library="highcharts"></chartkick>
+        <line-chart :data="chartData" :xtitle="'Time (past 24 hrs)'" :ytitle="'# Online Users'" :discrete="true"></line-chart>
         <table>
             <thead>
                 <tr>
@@ -26,6 +26,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { format } from 'date-fns';
 
 const liveCount = ref("Loading...");
 const chartData = ref([]);
@@ -45,8 +46,10 @@ const fetchChartData = async () => {
     if (response.data.length === 0 || response.data === null) {
         return;
     }
-    console.log("chart data: "+response.data);
-    chartData.value = response.data.map(item => [item.retrieved_at, item.count]);
+
+    chartData.value = response.data.map(item => [format(new Date(item.retrieved_at),'hh:mm a'), item.count]);
+
+    console.log("final chart data: "+JSON.stringify(chartData.value));
 };
 
 const fetchTableData = async () => {
