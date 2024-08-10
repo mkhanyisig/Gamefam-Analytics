@@ -31,7 +31,7 @@ class CheckActiveUsers extends Command
                 'retrieved_at' => now(),
             ]);
 
-            $this->info('Active users count saved successfully.');
+            $this->info('Active users count saved successfully. Count: ' . $count);
         } else {
             $this->error('Failed to fetch active users.');
         }

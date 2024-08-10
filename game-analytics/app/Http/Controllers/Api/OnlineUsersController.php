@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class OnlineUsersController extends Controller
 {
+    /* // not needed, get from raw API endpoint instead
     public function liveCount()
     {
         $latestCount = OnlineUser::latest()->first();
         return response()->json(['count' => $latestCount->count]);
     }
+        */
 
     public function chartData()
     {
