@@ -2,7 +2,7 @@
     <div>
         <h1>Mkhanyisi Gamefam test App </h1>
         <h2>Gamefam Analytics</h2>
-        <h2>Live Online Users: {{ liveCount ?? -1 }}</h2>
+        <h2>Live Online Users: {{ liveCount ?? ""  }}</h2>
         <chartkick :data="chartData" library="highcharts"></chartkick>
         <table>
             <thead>
@@ -27,16 +27,16 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const liveCount = ref(0);
+const liveCount = ref("Loading...");
 const chartData = ref([]);
 const tableData = ref([]);
 
 const fetchLiveCount = async () => {
     console.log("fetching live count");
-    const response = await axios.get('/api/online-users/live');
+    const response = await axios.get('https://origins.habbo.com/api/public/origins/users') // '/api/online-users/live' pull live value instead of the static value periodically saved
     console.log("raw response: "+response.data);
-    console.log("number of live users: "+response.data.count);
-    liveCount.value = response.data.count;
+    console.log("number of live users: "+response.data.onlineUsers);
+    liveCount.value = response.data.onlineUsers;
 };
 
 const fetchChartData = async () => {
