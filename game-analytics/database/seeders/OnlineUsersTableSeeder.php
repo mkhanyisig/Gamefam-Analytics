@@ -10,19 +10,30 @@ class OnlineUsersTableSeeder extends Seeder
 {
     public function run()
     {
-        $numberOfRecords = 1000;
+
+        // Truncate the table to remove all existing data
+        DB::table('online_users')->truncate();
+
+        $numberOfRecords = 1008;
+        $maxUsers = 4000;
+        $minUsers = 200;
+        $cycleLength = $numberOfRecords / 2; 
 
         $data = [];
         for ($i = 0; $i < $numberOfRecords; $i++) {
+            // Simulate a gradual increase and then decrease in user count
+            $scale = ($maxUsers - $minUsers) / 2;
+            $offset = ($maxUsers + $minUsers) / 2;
+            $userCount = $scale * sin(M_PI * $i / $cycleLength) + $offset;
+
             $data[] = [
-                'count' => rand(20, 10000), // Random number inn range
-                'retrieved_at' => Carbon::now()->subMinutes(rand(0, 1080)), // Random time within the last 24 hours
+                'count' => round($userCount),
+                'retrieved_at' => Carbon::now()->subMinutes(10*$i), // Random time in the past
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
         }
 
-        // Insert data into the table
         DB::table('online_users')->insert($data);
     }
 }
