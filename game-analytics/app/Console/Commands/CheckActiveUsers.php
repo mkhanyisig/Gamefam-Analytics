@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\OnlineUser;
+use Illuminate\Console\Command;
 
 class CheckActiveUsers extends Command
 {
@@ -16,11 +16,11 @@ class CheckActiveUsers extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         // Fetch the active users count from the given base API endpoint
         $response = Http::get('https://origins.habbo.com/api/public/origins/users');
-        
+
         if ($response->successful()) {
             $data = $response->json();
             $count = $data['onlineUsers'];
@@ -30,6 +30,8 @@ class CheckActiveUsers extends Command
                 'count' => $count,
                 'retrieved_at' => now(),
             ]);
+
+            \Log::info('users:check command triggered successfully. , count is ' . $count);
 
             $this->info('Active users count saved successfully. Count: ' . $count);
         } else {

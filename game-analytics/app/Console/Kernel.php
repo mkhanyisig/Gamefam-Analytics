@@ -4,25 +4,29 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\CheckActiveUsers;
 
 class Kernel extends ConsoleKernel
 {
     /**
-     * Define the application's command schedule.
+     * The Artisan commands provided by your application.
+     *
+     * @var array
      */
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->command('users:check')->everyTenMinutes();
-        
-    }
+    protected $commands = [
+        CheckActiveUsers::class,
+    ];
+
 
     /**
      * Register the commands for the application.
+     *
+     * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . "/Commands");
 
-        require base_path('routes/console.php');
+        require base_path("routes/console.php");
     }
 }
