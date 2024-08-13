@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 <tr v-for="row in tableData" :key="row.date">
-                    <td>{{ row.date }}</td>
+                    <td>{{ format(new Date(row.date), 'dd MMM yyyy') }}</td>
                     <td>{{ Math.round(row.peak_users*10)/10 }}</td>
                     <td>{{ Math.round(row.average_users*10)/10 }}</td>
                 </tr>
