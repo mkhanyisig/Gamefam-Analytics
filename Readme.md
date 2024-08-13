@@ -1,4 +1,4 @@
-# Monitoring Game Analytics
+# Game Website Analytics & Monitoring
 
 ## Overview
 
@@ -41,7 +41,7 @@ The Vue.js frontend will connect to the Laravel backend automatically.
 
 2. **Scheduled Tasks**
 
-The backend fetches data from the external API every 10 minutes. This is managed through Laravel's scheduler.
+The backend Cron job container fetches data from the external API every 10 minutes and updates the DB. This is managed through Laravel's scheduler.
 
 ## Viewing the Homepage
 
@@ -50,3 +50,37 @@ Navigate to (http://localhost:80) to view the homepage. The page includes:
 Header: Displays the site title and a live counter of online users.
 Chart: A Highcharts line chart showing online user metrics for the past 24 hours with controls to view more data. Includes export functionality to CSV.
 Table: Displays user metrics for up to 7 days with columns for Date, Peak Users, and Average Users.
+
+## Viewing SQLite Data
+
+The SQLite database file is located in the Laravel backend container. To access and view it:
+
+1. ** Access SQLite Database **
+
+```
+ docker-compose exec backend sh
+  sqlite3 database/database.sqlite
+```
+
+2. ** View Data **
+   Use SQLite commands to explore the database. There is only one table for this project, the "online_users" table. \n
+   Example command
+
+```
+ .tables
+SELECT * FROM online_users LIMIT 10;
+```
+
+The table and application data can also be explored through using Artisan Tinker
+
+```
+ php artisan tinker
+```
+
+## Running Tests
+
+To run PHPUnit tests for the backend:
+
+```
+ docker-compose exec backend ./vendor/bin/phpunit
+```
