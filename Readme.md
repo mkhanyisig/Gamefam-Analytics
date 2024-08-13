@@ -71,10 +71,22 @@ The SQLite database file is located in the Laravel backend container. To access 
 SELECT * FROM online_users LIMIT 10;
 ```
 
-The table and application data can also be explored through using Artisan Tinker
+The table and application data can also be explored through using Artisan Tinker. Inside Tinker, you can run Eloquent queries to inspect the data:
 
 ```
  php artisan tinker
+
+ App\Models\OnlineUser::all();
+```
+
+This will return all records from the online_users table, allowing you to verify that the seeding was successful.
+
+## Resetting and Seeding Database
+
+To populate the database with some initial data, you can use Laravel's seeder functionality
+
+```
+docker-compose exec backend php artisan db:seed
 ```
 
 ## Running Tests
