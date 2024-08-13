@@ -34,8 +34,8 @@ Ensure you have the following installed:
 
 1. **Access the Application**
 
-- Frontend (Vue.js): http://localhost:5173
-- Backend (Laravel API): http://localhost:8000
+- Frontend (Vue.js): http://localhost:5174 (container) | http://localhost:5174 (5174)
+- Backend (Laravel API): http://localhost:80 (container) | http://localhost:8080 (local machine)
 
 The Vue.js frontend will connect to the Laravel backend automatically.
 
