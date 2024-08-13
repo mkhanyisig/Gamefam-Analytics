@@ -55,14 +55,14 @@ Table: Displays user metrics for up to 7 days with columns for Date, Peak Users,
 
 The SQLite database file is located in the Laravel backend container. To access and view it:
 
-1. ** Access SQLite Database **
+1. **Access SQLite Database**
 
 ```
  docker-compose exec backend sh
   sqlite3 database/database.sqlite
 ```
 
-2. ** View Data **
+2. **View Data**
    Use SQLite commands to explore the database. There is only one table for this project, the "online_users" table. \n
    Example command
 
