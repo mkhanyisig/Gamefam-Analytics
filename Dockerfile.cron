@@ -1,0 +1,31 @@
+# Dockerfile.cron
+FROM php:8.2-cli
+
+# Install necessary packages including cron
+RUN apt-get update && apt-get install -y \
+    cron \
+    libpng-dev libjpeg-dev libfreetype6-dev \
+    libzip-dev unzip libxml2-dev git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install zip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
+WORKDIR /var/www
+
+# Copy application files
+COPY ./app /var/www
+
+# Install composer dependencies
+RUN composer install
+
+# Copy crontab file and set permissions
+COPY ./cron/crontab /etc/cron.d/my-cron
+RUN chmod 0644 /etc/cron.d/my-cron
+
+# Apply cron job
+RUN crontab /etc/cron.d/my-cron
+
+# Run cron in the foreground
+CMD ["cron", "-f"]

@@ -1,0 +1,31 @@
+FROM php:8.2-fpm
+
+# Set default group ID
+ARG WWWGROUP=1000
+RUN groupadd --force -g $WWWGROUP sail
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libpng-dev libjpeg-dev libfreetype6-dev \
+    libzip-dev unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd zip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /var/www
+
+# Copy application files
+COPY ./app /var/www
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install application dependencies
+RUN composer install
+
+# Expose port
+EXPOSE 9000
+
+# Start php-fpm
+CMD ["php-fpm"]
