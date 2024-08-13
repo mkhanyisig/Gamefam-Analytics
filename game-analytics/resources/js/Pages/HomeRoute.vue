@@ -1,13 +1,13 @@
 <template>
     <div class="container">
-        <h1 class="main-title">Mkhanyisi Habbo Website Traffick Tracking Analytics</h1>
-        <h2 class="section-title"> Online Users Count Over Time</h2>
+        <h1 class="main-title">Mkhanyisi Habbo Website Traffic Tracking Analytics</h1>
+        <h2 class="section-title">Online Users Count Over Time</h2>
         <div class="live-users-container">
             <img src="https://1000logos.net/wp-content/uploads/2020/09/Habbo-Logo-2000-500x386.jpg" alt="Online Users Icon" class="live-users-image" height="100">
             <h2 class="live-count">Habbos Online: <span>{{ liveCount ?? "Loading..." }}</span></h2>
         </div>
         <div class="button-container">
-            <p class="chart-title"> Past 24 Hours Online Users Count </p>
+            <p class="chart-title">Past 24 Hours Online Users Count</p>
             <button class="export-button" @click="exportToCSV">Export to CSV</button>
         </div>
         <line-chart 
@@ -46,24 +46,32 @@ const chartData = ref([]);
 const tableData = ref([]);
 
 const fetchLiveCount = async () => {
-    const response = await axios.get('https://origins.habbo.com/api/public/origins/users');
-    liveCount.value = response.data.onlineUsers;
+    try {
+        const response = await axios.get('https://origins.habbo.com/api/public/origins/users');
+        liveCount.value = response.data.onlineUsers;
+    } catch (error) {
+        console.error("Error fetching live count:", error);
+    }
 };
 
 const fetchChartData = async () => {
-    const response = await axios.get('/api/online-users/chart');
-    if (response.data.length === 0 || response.data === null) {
-        return;
+    try {
+        const response = await axios.get('/api/online-users/chart');
+        if (response.data.length > 0) {
+            chartData.value = response.data.map(item => [format(new Date(item.retrieved_at), 'hh:mm a'), item.count]);
+        }
+    } catch (error) {
+        console.error("Error fetching chart data:", error);
     }
-
-    chartData.value = response.data.map(item => [format(new Date(item.retrieved_at),'hh:mm a'), item.count]);
-
-    console.log("final chart data: "+JSON.stringify(chartData.value));
 };
 
 const fetchTableData = async () => {
-    const response = await axios.get('/api/online-users/table');
-    tableData.value = response.data;
+    try {
+        const response = await axios.get('/api/online-users/table');
+        tableData.value = response.data;
+    } catch (error) {
+        console.error("Error fetching table data:", error);
+    }
 };
 
 const exportToCSV = () => {
