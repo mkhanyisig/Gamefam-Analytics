@@ -3,6 +3,7 @@
         <h1>Mkhanyisi Gamefam test App </h1>
         <h2>Gamefam Analytics</h2>
         <h2>Live Online Users: {{ liveCount ?? ""  }}</h2>
+        <button @click="exportToCSV">Export to CSV</button>
         <line-chart :data="chartData" :xtitle="'Time (past 24 hrs)'" :ytitle="'# Online Users'" :discrete="true"></line-chart>
         <table>
             <thead>
@@ -57,6 +58,30 @@ const fetchTableData = async () => {
     const response = await axios.get('/api/online-users/table');
     tableData.value = response.data;
 };
+
+const exportToCSV = () => {
+    const csvRows = [];
+    
+    csvRows.push(['Retieval Time', 'Count'].join(','));
+
+    chartData.value.forEach(row => {
+        csvRows.push([
+            row.retrieved_at, 
+            row.count         
+        ].join(','));
+    });
+
+    // Create a Blob from the CSV rows
+    const csvBlob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+    const csvUrl = URL.createObjectURL(csvBlob);
+
+    // Create a link element to download the CSV
+    const link = document.createElement('a');
+    link.href = csvUrl;
+    link.download = 'past_day_online_users_'+format(new Date(), 'yyyy-MM-dd')+'.csv';
+    link.click();
+};
+
 
 onMounted(() => {
     fetchLiveCount();
