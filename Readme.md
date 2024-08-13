@@ -4,7 +4,7 @@
 
 This project is a simple data collection and visualization tool built with Laravel (backend) and Vue.js (frontend). It fetches online user metrics from a third-party API, stores the data in an SQLite database, and provides a web interface for visualizing the data. Three metrics are on the page, currennt live user count, past 24 hours actual live users at timestamp and summary stats for past 7 days tracked data.
 
-<img src="./homepage.png" alt="Homepage Screenshot"  height="600">
+<img src="./homepage.png" alt="Homepage Screenshot"  height="500">
 
 ## Prerequisites
 
