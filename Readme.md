@@ -15,6 +15,10 @@ Ensure you have the following installed:
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Vue](https://vuejs.org/guide/quick-start)
 
+<img src="https://picperf.io/https://laravelnews.s3.amazonaws.com/images/laravel-featured.png" alt="laravel" height="200">
+<img src="https://miro.medium.com/v2/resize:fit:500/1*CPDIH8BWrGipHRJ6o6E2Vw.png" alt="vue" height="200">
+<img src="https://blog.codewithdan.com/wp-content/uploads/2023/06/Docker-Logo.png" alt="docker" height="200">
+
 ## Installation
 
 1. **Clone the Repository**
