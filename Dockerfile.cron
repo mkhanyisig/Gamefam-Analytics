@@ -1,31 +1,40 @@
-# Dockerfile.cron
 FROM php:8.2-cli
 
-# Install necessary packages including cron
+# Install necessary packages including cron and PHP extensions
 RUN apt-get update && apt-get install -y \
     cron \
     libpng-dev libjpeg-dev libfreetype6-dev \
     libzip-dev unzip libxml2-dev git \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install zip \
+    && docker-php-ext-install gd zip \
     && rm -rf /var/lib/apt/lists/*
 
 # Set work directory
 WORKDIR /var/www
 
 # Copy application files
-COPY ./app /var/www
+COPY ./game-analytics /var/www
+
+# Copy composer.json and composer.lock files to the container
+COPY ./composer.json ./composer.lock /var/www/
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install composer dependencies
 RUN composer install
 
 # Copy crontab file and set permissions
-COPY ./cron/crontab /etc/cron.d/my-cron
-RUN chmod 0644 /etc/cron.d/my-cron
+COPY ./game-analytics/cron/crontab /etc/cron.d/my-cron
 
-# Apply cron job
-RUN crontab /etc/cron.d/my-cron
+# Copy the entrypoint script
+COPY ./game-analytics/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Ensure the entrypoint script is executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint to the custom script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Run cron in the foreground
 CMD ["cron", "-f"]

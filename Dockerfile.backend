@@ -16,7 +16,10 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /var/www
 
 # Copy application files
-COPY ./app /var/www
+COPY ./game-analytics /var/www
+
+# Copy the composer.json and composer.lock files to the container
+COPY ./composer.json ./composer.lock /var/www/
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

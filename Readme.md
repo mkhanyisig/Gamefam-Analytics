@@ -20,7 +20,7 @@ Ensure you have the following installed:
 1. **Clone the Repository**
 
    ```
-   bash git clone https://github.com/yourusername/your-repository.git
+   bash git clone https://github.com/mkhanyisig/Gamefam-Analytics.git
    cd your-repository
    ```
 
