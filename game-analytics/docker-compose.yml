@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  laravel.test:
+  laravel_sail_app:
     build:
       context: ./vendor/laravel/sail/runtimes/8.3
       dockerfile: Dockerfile
@@ -16,6 +16,7 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     image: sail-8.3/app
+    container_name: main_container_PROD
     networks:
       - sail
     ports:
@@ -24,14 +25,27 @@ services:
     volumes:
       - .:/var/www/html
   cron-schedulework:
-    build:
-      context: ./
-      dockerfile: Dockerfile.cron
-    command: php /var/www/html/artisan schedule:work
-    volumes:
-      - .:/var/www/html
-    networks:
-      - sail
+      build:
+        context: ./
+        dockerfile: Dockerfile.cron
+      command: php /var/www/html/artisan schedule:work
+      volumes:
+        - .:/var/www/html
+      container_name: background_cron_schedule_worker
+      networks:
+        - sail
+
+  vue_frontend:
+      build:
+        context: ./
+        dockerfile: Dockerfile.frontend
+      container_name: vue_frontend
+      restart: unless-stopped
+      ports:
+        - "8080:8080"  # Vue.js frontend on port 8080
+      networks:
+        - app_network
 networks:
   sail:
     driver: bridge
+  app_network:
