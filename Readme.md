@@ -29,13 +29,12 @@ Ensure you have the following installed:
 
    ```
    bash git clone https://github.com/mkhanyisig/Gamefam-Analytics.git
-   cd your-repository
+   cd game-analytics
    ```
 
 2. **Build and Start the Containers**
 
    ```
-   cd game-analytics
    docker-compose up --build
    ```
 
