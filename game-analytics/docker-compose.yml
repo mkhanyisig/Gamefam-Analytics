@@ -23,6 +23,15 @@ services:
       - "5174:5174"
     volumes:
       - .:/var/www/html
+  cron-schedulework:
+    build:
+      context: ./
+      dockerfile: Dockerfile.cron
+    command: php /var/www/html/artisan schedule:work
+    volumes:
+      - .:/var/www/html
+    networks:
+      - sail
 networks:
   sail:
     driver: bridge
