@@ -33,10 +33,19 @@ Ensure you have the following installed:
    ```
 
 2. **Build and Start the Containers**
+
    ```
+   cd game-analytics
    docker-compose up --build
    ```
-   This command builds the Docker images and starts the containers for both the Laravel backend, Vue frontend and the Cron Job chedule runner.
+
+   On a new tab, navigate and start the Vue frontend locally as well
+
+   ```
+   npm run dev
+   ```
+
+   This command builds the main Docker images and starts the containers for both the sail Docker image, Vue frontend and the Cron Job chedule runner.
 
 ## Running the Application
 
