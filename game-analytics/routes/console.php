@@ -10,7 +10,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-Schedule::command('users:check')->everyMinute();  // for testing purposes, switch back to 10 mins
+Schedule::command('users:check')->everyTenMinutes();
 
 Schedule::call(function () { // test cron job to write to a log file
     file_put_contents(storage_path('logs/test.log'), 'Cron job executed: ' . now() . PHP_EOL, FILE_APPEND);
