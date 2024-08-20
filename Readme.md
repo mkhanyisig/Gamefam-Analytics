@@ -20,6 +20,7 @@ Ensure you have the following installed:
     <td><img src="https://picperf.io/https://laravelnews.s3.amazonaws.com/images/laravel-featured.png" alt="laravel" height="100" width="170"></td>
     <td><img src="https://miro.medium.com/v2/resize:fit:500/1*CPDIH8BWrGipHRJ6o6E2Vw.png" alt="vue" height="100" width="170"></td>
     <td><img src="https://blog.codewithdan.com/wp-content/uploads/2023/06/Docker-Logo.png" height="100" width="170"></td>
+    <td> <img src="https://miro.medium.com/v2/resize:fit:1200/1*fMPUMki182HzyVZvo_awDw.png" height="100" width="170"></td>
   </tr>
 </table>
 
