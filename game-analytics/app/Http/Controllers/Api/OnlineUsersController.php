@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class OnlineUsersController extends Controller
 {
     
-    public function liveCount()
+    public function liveCount() // get latest count on Database, obsolete endpoint now
     {
         $latestCount = OnlineUser::latest()->first();
         

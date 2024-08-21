@@ -95,7 +95,7 @@ onMounted(() => {
     fetchLiveCount();
     fetchChartData();
     fetchTableData();
-    setInterval(fetchLiveCount, 60000);
+    setInterval(fetchLiveCount, 60000); // refresh live count every minute
 });
 </script>
 
