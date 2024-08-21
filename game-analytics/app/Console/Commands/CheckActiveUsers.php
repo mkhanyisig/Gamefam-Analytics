@@ -25,7 +25,7 @@ class CheckActiveUsers extends Command
             $data = $response->json();
             $count = $data['onlineUsers'];
 
-            // Store the count in the database
+            // Create and store the count record in the database
             OnlineUser::create([
                 'count' => $count,
                 'retrieved_at' => now(),

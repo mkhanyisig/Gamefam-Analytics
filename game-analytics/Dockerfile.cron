@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /var/www
 
 # Copy application files
-COPY ./game-analytics /var/www
+COPY ./ /var/www
 
 # Copy composer.json and composer.lock files to the container
 COPY ./composer.json ./composer.lock /var/www/
@@ -25,10 +25,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install
 
 # Copy crontab file and set permissions
-COPY ./game-analytics/cron/crontab /etc/cron.d/my-cron
+COPY ./cron/crontab /etc/cron.d/my-cron
 
 # Copy the entrypoint script
-COPY ./game-analytics/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Ensure the entrypoint script is executable
 RUN chmod +x /usr/local/bin/entrypoint.sh

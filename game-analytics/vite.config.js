@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import react from "@vitejs/plugin-react";
 import laravel from "laravel-vite-plugin";
 
 export default defineConfig({
@@ -10,7 +9,6 @@ export default defineConfig({
             refresh: true,
         }),
         vue(),
-        react(),
     ],
     resolve: {
         alias: {
@@ -21,10 +19,13 @@ export default defineConfig({
         host: true,
         proxy: {
             "/api": {
-                target: "http://127.0.0.1:8000", // Your Laravel API server
+                target: "http://laravel_sail_app_backend:80", // Your Laravel API server
                 changeOrigin: true,
                 secure: false,
             },
+        },
+        watch: {
+            usePolling: true, // Useful if you're running Vite inside a Docker container
         },
     },
 });
