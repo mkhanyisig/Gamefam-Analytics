@@ -14,6 +14,7 @@ Ensure you have the following installed:
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Vue](https://vuejs.org/guide/quick-start)
+- [Vue Chartkick](https://chartkick.com/vue)
 
 <table>
   <tr>
@@ -68,7 +69,7 @@ Header: Displays the site title and a live counter of online users.
 Chart: A Highcharts line chart showing online user metrics for the past 24 hours with controls to view more data. Includes export functionality to CSV.
 Table: Displays user metrics for up to 7 days with columns for Date, Peak Users, and Average Users.
 
-To run PHPUnit tests for the backend service container, either the laravel_sail_app_backend or cron-schedulework siince those run the PHP BE. This allows you to run commands on the container within terminal
+To run commands on the App container, especially the PHP Laravel backend service containers, either the laravel_sail_app_backend or cron-schedulework should work as specificatioon on the docker-compose command since those run the PHP BE services cruicial to App Acceptance Critera for design. This allows you to run commands on the container within terminal. The Vue Frontend terminal can be accessed simiilarily as well
 
 ## Viewing SQLite Data
 
