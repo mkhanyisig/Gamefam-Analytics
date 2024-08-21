@@ -36,6 +36,14 @@ Ensure you have the following installed:
 
 2. **Build and Start the Containers**
 
+   If have noot ran migrations yet, do so
+
+   ```
+   php artisan migrate
+   ```
+
+   Start up App container services
+
    ```
    docker-compose up --build
    ```
@@ -70,6 +78,12 @@ Chart: A Highcharts line chart showing online user metrics for the past 24 hours
 Table: Displays user metrics for up to 7 days with columns for Date, Peak Users, and Average Users.
 
 To run commands on the App container, especially the PHP Laravel backend service containers, either the laravel_sail_app_backend or cron-schedulework should work as specificatioon on the docker-compose command since those run the PHP BE services cruicial to App Acceptance Critera for design. This allows you to run commands on the container within terminal. The Vue Frontend terminal can be accessed simiilarily as well
+
+## API Endpoints
+
+- **GET** `/online-users/live`: Fetch the latest live user count stored on DB
+- **GET** `/online-users/chart`: Fetch user count data for the past 24 hours.
+- **GET** `/online-users/table`: Fetch summary data (peak and average users) for the past 7 days.
 
 ## Viewing SQLite Data
 
@@ -116,3 +130,9 @@ Invoke tests on container via:
 ```
  docker-compose exec laravel_sail_app_backend php artisan test
 ```
+
+## Troubleshooting
+
+- **Containers not starting**: Ensure Docker is running and you've allocated sufficient resources.
+- **Database errors**: Run `php artisan migrate --force` to ensure your database is up to date.
+- **Frontend not loading**: Verify Vue.js is running on the correct port (`localhost:5174`).
