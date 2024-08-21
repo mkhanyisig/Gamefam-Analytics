@@ -20,6 +20,7 @@ Ensure you have the following installed:
     <td><img src="https://picperf.io/https://laravelnews.s3.amazonaws.com/images/laravel-featured.png" alt="laravel" height="100" width="170"></td>
     <td><img src="https://miro.medium.com/v2/resize:fit:500/1*CPDIH8BWrGipHRJ6o6E2Vw.png" alt="vue" height="100" width="170"></td>
     <td><img src="https://blog.codewithdan.com/wp-content/uploads/2023/06/Docker-Logo.png" height="100" width="170"></td>
+    <td> <img src="https://miro.medium.com/v2/resize:fit:1200/1*fMPUMki182HzyVZvo_awDw.png" height="100" width="170"></td>
   </tr>
 </table>
 
@@ -29,23 +30,29 @@ Ensure you have the following installed:
 
    ```
    bash git clone https://github.com/mkhanyisig/Gamefam-Analytics.git
-   cd your-repository
+   cd game-analytics
    ```
 
 2. **Build and Start the Containers**
+
    ```
    docker-compose up --build
    ```
-   This command builds the Docker images and starts the containers for both the Laravel backend, Vue frontend and the Cron Job chedule runner.
+
+   On a new tab, navigate and start the Vue frontend locally as well
+
+   ```
+   npm run dev
+   ```
+
+   This command builds the main Docker images and starts the containers for both the sail Docker image, Vue frontend and the Cron Job chedule runner.
 
 ## Running the Application
 
 1. **Access the Application**
 
-The main Application runs on http://localhost:80 (container)
-
-- Frontend (Vue.js): http://localhost:5174 (container) | http://localhost:5173 (5173)
-- Backend (Laravel API): http://localhost:80 (container) | http://localhost:8080 (local machine)
+- Frontend (Vue.js): http://localhost:5174 (container) | http://localhost:5174 (5174)
+- Backend (Laravel API): http://localhost:80 (container) | http://localhost:8000 (local machine when serving)
 
 The Vue.js frontend will connect to the Laravel backend automatically.
 
@@ -61,6 +68,8 @@ Header: Displays the site title and a live counter of online users.
 Chart: A Highcharts line chart showing online user metrics for the past 24 hours with controls to view more data. Includes export functionality to CSV.
 Table: Displays user metrics for up to 7 days with columns for Date, Peak Users, and Average Users.
 
+To run PHPUnit tests for the backend service container, either the laravel_sail_app_backend or cron-schedulework siince those run the PHP BE. This allows you to run commands on the container within terminal
+
 ## Viewing SQLite Data
 
 The SQLite database file is located in the Laravel backend container. To access and view it:
@@ -68,7 +77,7 @@ The SQLite database file is located in the Laravel backend container. To access 
 1. **Access SQLite Database**
 
 ```
- docker-compose exec backend sh
+ docker-compose exec laravel_sail_app_backend sh
   sqlite3 database/database.sqlite
 ```
 
@@ -93,16 +102,16 @@ This will return all records from the online_users table, allowing you to verify
 
 ## Resetting and Seeding Database
 
-To populate the database with some initial data, you can use Laravel's seeder functionality
+To populate the database with some initial data, you can use Laravel's seeder functionality.
 
 ```
-docker-compose exec backend php artisan db:seed
+docker-compose exec laravel_sail_app_backend php artisan db:seed
 ```
 
 ## Running Tests
 
-To run PHPUnit tests for the backend:
+Invoke tests on container via:
 
 ```
- docker-compose exec backend ./vendor/bin/phpunit
+ docker-compose exec laravel_sail_app_backend php artisan test
 ```
